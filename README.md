@@ -5,8 +5,6 @@ ZHANG Yan
 
 pragma solidity ^0.4.0;
 contract Voting {
-    
-contract Vote {
 
     struct Candidate {
 
