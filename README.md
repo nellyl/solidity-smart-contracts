@@ -6,82 +6,62 @@ ZHANG Yan
 pragma solidity ^0.4.0;
 contract Voting {
     
-    // A single voter
-    Voter[] public voters;
+contract Vote {
+
+    struct Candidate {
+
+        uint votecount;
+
+        string name;
+
+    }
+
     struct Voter {
+
         bool voted;
-        uint8 vote;
-        address delegate;
+
     }
 
-    // A type of proposal
-    Proposal[] public proposals;
-    struct Proposal {
-        uint voteCount;
-        bytes32 name;
-    }
+    mapping(address => Voter) public voters;
 
-    // A chairperson
-    address public chairperson;
+    Candidate[] public candidates;
 
+    function Vote() {
 
-    // Function to give the right to vote 
-    function RightToVote(uint8 proposal) {
-        for(uint i = 0; i< voters.length ; i++) {
-            if(msg.sender == voters[i].delegate) {
-                if(voters[i].voted) {
-                    throw;
-                }
-                voters[i].voted = true;
-                proposals[proposal].voteCount += 1;
-                voters[i].vote = proposal;
-            }
-        }
-    }
-    
-    // Function to add a voter
-    function AddingVoter(address newVoter) {
-        bool presence = false;
-        if (msg.sender != chairperson) {
-            throw;
-        }
-        for(uint i = 0; i< voters.length ; i++) {
-            if(newVoter == voters[i].delegate) {
-                presence = true ;
-            }
-        }
-        if(!presence) {
-            voters.push(Voter({
-                voted : false, delegate : newVoter, vote : 0 
+        candidates.push(Candidate({
+
+                name: “candidate1”,
+
+                votecount: 0
+
             }));
-        }
-    }
 
-    // Function to add a proposal
-    function AddingProposal(bytes32 newProposal) {
-        bool present = false;
-        if (msg.sender != chairperson) {
-            throw;
-        }
-        for(uint i = 0; i< proposals.length ; i++) {
-            if(newProposal == proposals[i].name){
-                throw;
-            }
-            proposals.push(Proposal({
-                name : newProposal , voteCount : 0 
-                
+        candidates.push(Candidate({
+
+                name: “candidate2”,
+
+                votecount: 0
+
             }));
-        }
+
+      }
+
+    function Vote_candidate(uint8 numCandidate)
+
+    {
+
+        if(voters[msg.sender].voted ||numCandidate>candidates.length)return;
+
+        candidates[numCandidate].votecount+=1;
+
+        voters[msg.sender].voted=true;
+
     }
 
-    // Function to find the winning proposal
-    function Winning() constant returns (uint winning) {
-        uint winningCount = 0;
-        for (uint i = 0; i < proposals.length; i++) {
-            if (proposals[i].voteCount > winningCount) {
-                winningCount = proposals[i].voteCount;
-                winning = i;
-            }
-        }
+  function Getcount() returns(string,uint,string,uint){
+
+        return(candidates[0].name,candidates[0].votecount,candidates[1].name,candidates[1].votecount);
+
     }
+
 }
