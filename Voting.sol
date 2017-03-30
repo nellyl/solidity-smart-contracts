@@ -1,6 +1,6 @@
 LAM Nelly HAMIDI Melinda ZHANG Yan
 
-ragma solidity ^0.4.0; 
+pragma solidity ^0.4.0; 
 
 contract Voting { 
 Voter[] voters; 
