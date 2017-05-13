@@ -1,3 +1,2 @@
 # solidity-smart-contracts
-LAM Nelly 
-Rattrapages
+LAM Nelly - Rattrapages
