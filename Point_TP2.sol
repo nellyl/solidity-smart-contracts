@@ -90,11 +90,11 @@ contract Point {
         }
     }
 
-	// Get the new balance of the account client
-	function Balance(address new_client) theManager() constant returns(uint){
+    // Get the new balance of the account client
+    function Balance(address new_client) theManager() constant returns(uint){
         for(uint i  = 0 ; i < clients.length; i++){
             if(clients[i].address_c == new_client){
-				return getBalance(i);
+		return getBalance(i);
             }
         }
         throw;
