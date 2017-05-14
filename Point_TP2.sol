@@ -10,19 +10,19 @@ contract Point {
         uint balance;
     }
 	
-	Manager[] managers;
-	struct Manager {
+    Manager[] managers;
+    struct Manager {
         address address_m;
     }
     
     address public chairperson;
 
-	// Initialisation of the contract chairperson 
+    // Initialisation of the contract chairperson 
     function Points() {
         chairperson = msg.sender;
     }
 	
-	modifier theChairperson(){
+    modifier theChairperson(){
         if(msg.sender != chairperson) throw; 
         _;
     }
@@ -34,12 +34,12 @@ contract Point {
         } throw;
     }
 	
-	// Get the balance of the client
-	function getBalance(uint _aIndex) theManager() constant returns(uint) {
-        return clients[_aIndex].balance;
+    // Get the balance of the client
+    function getBalance(uint index) theManager() constant returns(uint) {
+        return clients[index].balance;
     }
 	
-	// The chairperson can add a new manager
+    // The chairperson can add a new manager
     function AddManager(address new_manager) theChairperson() {
         bool existed = false;
         for(uint i = 0; i< managers.length ; i++){
@@ -67,7 +67,7 @@ contract Point {
         }
     }
 	
-	// The manager can attribute points to a client account
+    // The manager can attribute points to a client account
     function Attribute(address new_client, uint new_points) theManager() {
         for(uint i  = 0 ; i < clients.length; i++){
             if(clients[i].address_c == new_client){
@@ -85,7 +85,7 @@ contract Point {
                 if( getBalance(i) > new_points){
                     clients[i].balance = clients[i].balance - new_points;
                 }
-				else{ throw; }   
+		else{ throw; }   
             }
         }
     }
