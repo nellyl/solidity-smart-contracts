@@ -2,7 +2,7 @@ pragma solidity ^0.4.0;
 
 // Loyalty points system using ethereum blockchain
 
-contract Point{
+contract Point {
 
     Client[] clients;
     struct Client{
